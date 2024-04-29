@@ -57,7 +57,7 @@ public class Prob1 {
 
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "Time of Day Most Often Tweets");
+        Job job = Job.getInstance(conf, "Prob 1");
         job.setJarByClass(Prob1.class);
         job.setMapperClass(TweetMapper.class);
         job.setReducerClass(TweetReducer.class);
