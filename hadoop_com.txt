@@ -1,0 +1,33 @@
+tar xzvf ./Downloads/docker-23.0.0.tgz
+
+sudo cp docker/* /usr/bin/
+
+sudo dockerd &
+
+docker run -it --volume ./dock_dir:/mnt/dock_dir sequenceiq/hadoop-docker:latest /etc/bootstrap.sh -bash
+
+export HADOOP_CLASSPATH=/usr/java/default/lib/tools.jar
+
+export PATH=$PATH:/usr/local/hadoop/bin
+
+hdfs dfs -mkdir /user/root/data
+
+hdfs dfs -put /mnt/dock_dir/test1.txt /user/root/data
+
+hdfs dfs -ls /user/root/data 
+
+cd mnt/dock_dir
+
+hadoop com.sun.tools.javac.Main Prob1.java
+ls
+
+jar -cvf Prob1.jar Prob1*.class
+ls 
+jar tf Prob1.jar
+
+hadoop jar Prob1.jar Prob1 /user/root/data /user/root/output
+
+hdfs dfs -cat /user/root/output/part-r-00000
+
+hdfs dfs -get /user/root/output/part-r-00000 </local/path/to/download>
+
