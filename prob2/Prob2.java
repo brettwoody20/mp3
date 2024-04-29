@@ -1,5 +1,8 @@
 package prob2;
 
+import prob2.MyInputFormat;
+import prob2.MyRecordReader;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,26 +35,37 @@ public class Prob2 {
 
 	    	String line = value.toString();
 	    	String[] lines = line.split("\n");
+
+			//String wit = "" + lines[1].charAt(0);
+
+			context.write(new Text(String.valueOf(lines.length)), new IntWritable(1));
+
+			// if (lines[2].charAt(0) == 'W') {
+			// 	context.write(new Text("1"), new IntWritable(1));
+			// } else {
+			// 	context.write(new Text("0"), new IntWritable(1));
+			// }
+
 	    	
-            if (lines[2].contains("sleep")) {
-                try {
-                    String timestampString = lines[0].substring(1, lines[0].length());
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(dateFormat.parse(timestampString));
-                    int hour = cal.get(Calendar.HOUR_OF_DAY);
+            // if (lines.length == 4 && lines[3].toLowerCase().contains("sleep")) {
+            //     try {
+            //         String timestampString = lines[1].substring(1, lines[1].length());
+            //         Calendar cal = Calendar.getInstance();
+            //         cal.setTime(dateFormat.parse(timestampString));
+            //         int hour = cal.get(Calendar.HOUR_OF_DAY);
 
-                    context.write(new Text(String.valueOf(hour)), new IntWritable(1));
-                } catch (ParseException e) {
+            //         context.write(new Text(String.valueOf(hour)), new IntWritable(1));
+            //     } catch (ParseException e) {
 
-                }
-            }
+            //     }
+            // }
 	      
 	    }
 	  }
 
-	  public static class arrayReducer extends Reducer <Text, IntWritable, Text, Text> {
+	  public static class arrayReducer extends Reducer <Text, IntWritable, Text, IntWritable> {
 
-	    public void reduce(Text key, Text values, Context context) throws IOException, InterruptedException {
+	    public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 
 	        int sum = 0;
             for (IntWritable value : values) {

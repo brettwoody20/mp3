@@ -1,5 +1,7 @@
 package prob2;
 
+import prob2.MyRecordReader;
+
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.InputSplit;
@@ -11,9 +13,9 @@ import java.io.IOException;
 
 public class MyInputFormat extends TextInputFormat{
 
-    @Override
+
     public RecordReader<LongWritable, Text> createRecordReader(InputSplit split,
-            TaskAttemptContext context) throws IOException {
+            TaskAttemptContext context) {
         return new MyRecordReader();
     }
 }
