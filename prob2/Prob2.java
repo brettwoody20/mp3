@@ -36,10 +36,11 @@ public class Prob2 {
 	    	String line = value.toString();
 	    	String[] lines = line.split("\n");
 
-			//String wit = "" + lines[1].charAt(0);
-
-			context.write(new Text(String.valueOf(lines.length)), new IntWritable(1));
-
+			//context.write(new Text(String.valueOf(lines.length)), new IntWritable(1));
+			// if (lines.length == 4) {
+			// 	String wi = "-" + lines[3].charAt(0) + "-";
+			// 	context.write(new Text(lines[1]), new IntWritable(1));
+			// }
 			// if (lines[2].charAt(0) == 'W') {
 			// 	context.write(new Text("1"), new IntWritable(1));
 			// } else {
@@ -47,18 +48,18 @@ public class Prob2 {
 			// }
 
 	    	
-            // if (lines.length == 4 && lines[3].toLowerCase().contains("sleep")) {
-            //     try {
-            //         String timestampString = lines[1].substring(1, lines[1].length());
-            //         Calendar cal = Calendar.getInstance();
-            //         cal.setTime(dateFormat.parse(timestampString));
-            //         int hour = cal.get(Calendar.HOUR_OF_DAY);
+            if (lines.length == 4 && lines[3].toLowerCase().contains("sleep")) {
+                try {
+                    String timestampString = lines[1].substring(1, lines[1].length());
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(dateFormat.parse(timestampString));
+                    int hour = cal.get(Calendar.HOUR_OF_DAY);
 
-            //         context.write(new Text(String.valueOf(hour)), new IntWritable(1));
-            //     } catch (ParseException e) {
+                    context.write(new Text(String.valueOf(hour)), new IntWritable(1));
+                } catch (ParseException e) {
 
-            //     }
-            // }
+                }
+            }
 	      
 	    }
 	  }
